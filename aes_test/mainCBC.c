@@ -33,6 +33,7 @@ int encrypt_luac_cbc(const char* input_path, const char* output_path,
     // 3. 分块读取、填充、加密
     uint8_t buffer[CHUNK_SIZE];
     size_t bytes_read;
+    int count = 0;
     while ((bytes_read = fread(buffer, 1, CHUNK_SIZE, in)) > 0) {
         // 最后一个块需要填充
         if (feof(in) && (bytes_read % BLOCK_SIZE != 0)) {
@@ -40,6 +41,20 @@ int encrypt_luac_cbc(const char* input_path, const char* output_path,
         }
         AES_CBC_encrypt_buffer(&ctx, buffer, bytes_read);
         fwrite(buffer, 1, bytes_read, out);
+
+        //写入单块监测文件
+        char* checkFileName;
+        strcpy(checkFileName,output_path);
+        char idx[3];
+        sprintf(idx, "%d", count);
+        checkFileName[strlen(checkFileName)-3] = '\0';
+        strcat(checkFileName,idx);
+        FILE* tmpfp = fopen(checkFileName,"wb");
+        fwrite(buffer, 1, bytes_read, tmpfp);
+        fclose(tmpfp);
+
+        count++;
+
     }
 
     fclose(in);
