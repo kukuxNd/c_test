@@ -1,0 +1,55 @@
+{
+  "name": "stager",
+  "build": "make stager_so",
+  "author": "jm33-ng",
+  "date": "2025-01-26",
+  "comment": "A Linux stager that supports payload delivery via HTTP with encryption and compression. Use with emp3r0r-listener",
+  "is_local": true,
+  "platform": "Linux",
+  "path": "",
+  "options": {
+    "BUILD_EXE": {
+      "opt_name": "BUILD_EXE",
+      "opt_desc": "Build stager as an executable, otherwise a shared object will be built",
+      "opt_val": "no",
+      "opt_vals": ["yes", "no"]
+    },
+    "ARCH": {
+      "opt_name": "ARCH",
+      "opt_desc": "The architecture of the target system, use GOARCH values",
+      "opt_val": "amd64",
+      "opt_vals": ["amd4", "386", "arm", "riscv64"]
+    },
+    "DOWNLOAD_HOST": {
+      "opt_name": "DOWNLOAD_HOST",
+      "opt_desc": "The host to download the payload from, eg. 192.168.0.1",
+      "opt_val": "",
+      "opt_vals": []
+    },
+    "DOWNLOAD_PORT": {
+      "opt_name": "DOWNLOAD_PORT",
+      "opt_desc": "The port to download the payload from, eg. 80",
+      "opt_val": "8000",
+      "opt_vals": []
+    },
+    "DOWNLOAD_PATH": {
+      "opt_name": "DOWNLOAD_PATH",
+      "opt_desc": "The path to download the payload from, eg. /payload",
+      "opt_val": "/",
+      "opt_vals": []
+    },
+    "DOWNLOAD_KEY": {
+      "opt_name": "DOWNLOAD_KEY",
+      "opt_desc": "The key to decrypt the payload",
+      "opt_val": "",
+      "opt_vals": []
+    }
+  },
+  "agent_config": {
+    "exec": "",
+    "files": [],
+    "in_memory": false,
+    "type": "",
+    "interactive": false
+  }
+}
